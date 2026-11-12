@@ -1,0 +1,3 @@
+[submodule "extern/bsnes"]
+	path = extern/bsnes
+	url = https://github.com/bsnes-emu/bsnes.git

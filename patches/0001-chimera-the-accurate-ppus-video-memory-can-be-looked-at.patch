@@ -1,0 +1,14 @@
+diff --git a/bsnes/sfc/ppu/ppu.hpp b/bsnes/sfc/ppu/ppu.hpp
+index 353acf270..09f6c956c 100644
+--- a/bsnes/sfc/ppu/ppu.hpp
++++ b/bsnes/sfc/ppu/ppu.hpp
+@@ -29,6 +29,9 @@ struct PPU : Thread, PPUcounter {
+   //serialization.cpp
+   auto serialize(serializer&) -> void;
+ 
++  //chimera: the video memory, for a frontend's memory viewer
++  auto videoMemory() -> uint16* { return vram.data; }
++
+ private:
+   //ppu.cpp
+   alwaysinline auto step() -> void;

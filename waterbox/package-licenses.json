@@ -1,0 +1,48 @@
+{
+  "package": "bsnes115",
+  "effectiveTerms": "GPL-3.0-only",
+  "commercialUse": "allowed under the GPL",
+  "note": "The core is bsnes v115 (GPL-3.0-only) with this repository's patches (GPL-3.0-only) and integration (MIT); the program is distributed under the GPL version 3. Inside bsnes, and compiled in: nall and its other libraries by byuu (ISC), SameBoy by Lior Halphon (MIT), which plays the Game Boy in a Super Game Boy, and upstream's databases of cartridge boards and of verified games. libco is this repository's own (waterbox/libco.c, MIT), with the aarch64 switch of ares's libco (ISC). The package contains no game, no Super Game Boy cartridge or boot ROM and no coprocessor firmware: the user supplies them.",
+  "components": [
+    {
+      "name": "chimera-core-bsnes115 (integration)",
+      "license": "MIT, and GPL-3.0-only for patches/",
+      "url": "https://github.com/ToolAssisted-run/chimera-core-bsnes115",
+      "commit": "{selfCommit}",
+      "file": "LICENSE",
+      "sourceUrl": "https://github.com/ToolAssisted-run/chimera-core-bsnes115/archive/{commit}.tar.gz"
+    },
+    {
+      "name": "bsnes v115",
+      "license": "GPL-3.0-only (bsnes); ISC (libco, nall)",
+      "url": "https://github.com/bsnes-emu/bsnes",
+      "commit": "{submodule:extern/bsnes}",
+      "file": "extern/bsnes/LICENSE.txt",
+      "sourceUrl": "https://github.com/bsnes-emu/bsnes/archive/{commit}.tar.gz"
+    },
+    {
+      "name": "bsnes's full licence text",
+      "license": "GPL-3.0-only",
+      "url": "https://github.com/bsnes-emu/bsnes",
+      "file": "extern/bsnes/GPLv3.txt"
+    },
+    {
+      "name": "SameBoy (in bsnes)",
+      "license": "MIT",
+      "url": "https://github.com/LIJI32/SameBoy",
+      "file": "extern/bsnes/bsnes/gb/LICENSE"
+    },
+    {
+      "name": "ares's libco, its aarch64 switch (in waterbox/libco.c)",
+      "license": "ISC",
+      "url": "https://github.com/ares-emulator/ares",
+      "file": "waterbox/LICENSE-ares"
+    },
+    {
+      "name": "A Super NES controller, a photograph (pictures/snes-controller.png)",
+      "license": "Public domain",
+      "url": "https://commons.wikimedia.org/wiki/File:SNES-Controller-Flat.jpg",
+      "file": "pictures/snes-controller.txt"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "_comment": "Default bindings: player 1 on the keyboard's arrows and letters and on the first game controller, its buttons where a Super Nintendo pad has them. The person's own bindings always win.",
+  "AllTrollers": {
+    "SNES Controller": {
+      "P1 Up": "Up, X1 DpadUp, X1 LStickUp, J1 POV0U",
+      "P1 Down": "Down, X1 DpadDown, X1 LStickDown, J1 POV0D",
+      "P1 Left": "Left, X1 DpadLeft, X1 LStickLeft, J1 POV0L",
+      "P1 Right": "Right, X1 DpadRight, X1 LStickRight, J1 POV0R",
+      "P1 Select": "Space, X1 Back",
+      "P1 Start": "Enter, X1 Start",
+      "P1 B": "Z, X1 A",
+      "P1 A": "X, X1 B",
+      "P1 Y": "A, X1 X",
+      "P1 X": "S, X1 Y",
+      "P1 L": "Q, X1 LeftShoulder",
+      "P1 R": "W, X1 RightShoulder"
+    }
+  }
+}

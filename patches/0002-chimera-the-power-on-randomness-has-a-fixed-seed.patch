@@ -1,0 +1,14 @@
+diff --git a/bsnes/emulator/random.hpp b/bsnes/emulator/random.hpp
+index b6228877f..a5e4f2a92 100644
+--- a/bsnes/emulator/random.hpp
++++ b/bsnes/emulator/random.hpp
+@@ -15,7 +15,8 @@ struct Random {
+   }
+ 
+   auto seed(maybe<uint32> seed = nothing, maybe<uint32> sequence = nothing) -> void {
+-    if(!seed) seed = (uint32)clock();
++    //chimera: not the host's processor clock, so a movie plays the same everywhere
++    if(!seed) seed = 0;
+     if(!sequence) sequence = 0;
+ 
+     _state = 0;

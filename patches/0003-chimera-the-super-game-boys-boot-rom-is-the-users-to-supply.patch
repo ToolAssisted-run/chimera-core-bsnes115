@@ -1,0 +1,57 @@
+diff --git a/bsnes/sfc/coprocessor/icd/icd.cpp b/bsnes/sfc/coprocessor/icd/icd.cpp
+index 1b5199c43..f15f2898a 100644
+--- a/bsnes/sfc/coprocessor/icd/icd.cpp
++++ b/bsnes/sfc/coprocessor/icd/icd.cpp
+@@ -5,7 +5,8 @@ namespace SuperFamicom {
+ ICD icd;
+ #include "interface.cpp"
+ #include "io.cpp"
+-#include "boot-roms.cpp"
++//chimera: not boot-roms.cpp, which holds Nintendo's Super Game Boy boot ROMs;
++//the frontend supplies the boot ROM the person has (ICD::load)
+ #include "serialization.cpp"
+ 
+ namespace SameBoy {
+@@ -82,13 +83,17 @@ auto ICD::load() -> bool {
+   information = {};
+ 
+   GB_random_set_enabled(configuration.hacks.entropy != "None");
++  uint8_t bootROM[256] = {};
++  if(auto fp = platform->open(ID::SuperFamicom, Frequency == 0 ? "sgb1.boot.rom" : "sgb2.boot.rom", File::Read, File::Required)) {
++    if(fp->size() != 256) return false;
++    fp->read(bootROM, 256);
++  } else return false;
+   if(Frequency == 0) {
+     GB_init(&sameboy, GB_MODEL_SGB_NO_SFC);
+-    GB_load_boot_rom_from_buffer(&sameboy, (const unsigned char*)&SGB1BootROM[0], 256);
+   } else {
+     GB_init(&sameboy, GB_MODEL_SGB2_NO_SFC);
+-    GB_load_boot_rom_from_buffer(&sameboy, (const unsigned char*)&SGB2BootROM[0], 256);
+   }
++  GB_load_boot_rom_from_buffer(&sameboy, bootROM, 256);
+   GB_set_sample_rate_by_clocks(&sameboy, 256);
+   GB_set_highpass_filter_mode(&sameboy, GB_HIGHPASS_ACCURATE);
+   GB_set_icd_hreset_callback(&sameboy, &SameBoy::hreset);
+@@ -102,11 +107,11 @@ auto ICD::load() -> bool {
+   GB_set_pixels_output(&sameboy, &bitmap[0]);
+   if(auto loaded = platform->load(ID::GameBoy, "Game Boy", "gb")) {
+     information.pathID = loaded.pathID;
+-  } else return unload(), false;
++  } else return false;
+   if(auto fp = platform->open(pathID(), "manifest.bml", File::Read, File::Required)) {
+     auto manifest = fp->reads();
+     cartridge.slotGameBoy.load(manifest);
+-  } else return unload(), false;
++  } else return false;
+   if(auto fp = platform->open(pathID(), "program.rom", File::Read, File::Required)) {
+     auto size = fp->size();
+     auto data = (uint8_t*)malloc(size);
+@@ -114,7 +119,7 @@ auto ICD::load() -> bool {
+     fp->read(data, size);
+     GB_load_rom_from_buffer(&sameboy, data, size);
+     free(data);
+-  } else return unload(), false;
++  } else return false;
+   if(auto fp = platform->open(pathID(), "save.ram", File::Read)) {
+     auto size = fp->size();
+     auto data = (uint8_t*)malloc(size);
